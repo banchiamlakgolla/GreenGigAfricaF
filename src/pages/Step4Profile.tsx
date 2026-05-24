@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+<<<<<<< HEAD
 import { api } from '../api';
+=======
+>>>>>>> origin/main
 import AuthLayout from '../components/AuthLayout';
 import ProgressBar from '../components/ProgressBar';
 import styles from './Step4Profile.module.css';
 
+<<<<<<< HEAD
 const LGAS = [
   'Agege', 'Ajeromi-Ifelodun', 'Alimosho', 'Amuwo-Odofin', 'Apapa',
   'Badagry', 'Epe', 'Eti-Osa', 'Ibeju-Lekki', 'Ifako-Ijaiye',
@@ -32,6 +36,41 @@ const LGA_MAP: Record<string, string> = {
   'Shomolu': 'shomolu', 'Surulere': 'surulere',
 };
 
+=======
+// Lagos LGAs — primary market for the pilot
+const LGAS = [
+  'Agege',
+  'Ajeromi-Ifelodun',
+  'Alimosho',
+  'Amuwo-Odofin',
+  'Apapa',
+  'Badagry',
+  'Epe',
+  'Eti-Osa',
+  'Ibeju-Lekki',
+  'Ifako-Ijaiye',
+  'Ikeja',
+  'Ikorodu',
+  'Kosofe',
+  'Lagos Island',
+  'Lagos Mainland',
+  'Mushin',
+  'Ojo',
+  'Oshodi-Isolo',
+  'Shomolu',
+  'Surulere',
+];
+
+const INTERESTS = [
+  { id: 'waste', label: 'Waste Collection', icon: '🗑️', comingSoon: false },
+  { id: 'trees', label: 'Tree Planting', icon: '🌳', comingSoon: true },
+  { id: 'farming', label: 'Urban Farming', icon: '🌾', comingSoon: true },
+  { id: 'climate', label: 'Climate Data', icon: '📊', comingSoon: true },
+  { id: 'recycling', label: 'Recycling', icon: '♻️', comingSoon: false },
+  { id: 'education', label: 'Community Education', icon: '📚', comingSoon: false },
+];
+
+>>>>>>> origin/main
 export default function Step4Profile() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,8 +79,11 @@ export default function Step4Profile() {
   const [name, setName] = useState('');
   const [lga, setLga] = useState('');
   const [interests, setInterests] = useState<Set<string>>(new Set());
+<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+=======
+>>>>>>> origin/main
 
   const canContinue = name.trim().length > 0 && lga !== '' && interests.size > 0;
 
@@ -53,6 +95,7 @@ export default function Step4Profile() {
     });
   }
 
+<<<<<<< HEAD
   async function handleContinue() {
     if (!canContinue || loading) return;
     setLoading(true);
@@ -71,6 +114,13 @@ export default function Step4Profile() {
     } finally {
       setLoading(false);
     }
+=======
+  function handleContinue() {
+    if (!canContinue) return;
+    navigate('/onboarding/success', {
+      state: { phone, path, name, lga, interests: [...interests] },
+    });
+>>>>>>> origin/main
   }
 
   return (
@@ -88,6 +138,7 @@ export default function Step4Profile() {
         <h2 className={styles.heading}>Tell us about yourself</h2>
         <div className={styles.fields}>
           <div className={styles.field}>
+<<<<<<< HEAD
             <label className={styles.label} htmlFor="fullname">Full name</label>
             <input id="fullname" type="text" className={styles.input}
               placeholder="Enter full name" value={name}
@@ -102,28 +153,93 @@ export default function Step4Profile() {
                 {LGAS.map((l) => <option key={l} value={l}>{l}</option>)}
               </select>
               <span className={styles.arrow} aria-hidden="true">▾</span>
+=======
+            <label className={styles.label} htmlFor="fullname">
+              Full name
+            </label>
+            <input
+              id="fullname"
+              type="text"
+              className={styles.input}
+              placeholder="Enter full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="lga">
+              Your LGA
+            </label>
+            <div className={styles.selectWrap}>
+              <select
+                id="lga"
+                className={styles.select}
+                value={lga}
+                onChange={(e) => setLga(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select your area
+                </option>
+                {LGAS.map((l) => (
+                  <option key={l} value={l}>
+                    {l}
+                  </option>
+                ))}
+              </select>
+              <span className={styles.arrow} aria-hidden="true">
+                ▾
+              </span>
+>>>>>>> origin/main
             </div>
           </div>
           <div className={styles.interestSection}>
             <p className={styles.interestHeading}>I'm interested in</p>
             <div className={styles.grid}>
               {INTERESTS.map((item) => (
+<<<<<<< HEAD
                 <button key={item.id} type="button"
                   className={`${styles.interestCard} ${interests.has(item.id) ? styles.interestSelected : ''}`}
                   onClick={() => toggleInterest(item.id)}
                   aria-pressed={interests.has(item.id)}>
                   <span className={styles.interestIcon}>{item.icon}</span>
                   <span className={styles.interestName}>{item.label}</span>
+=======
+                <button
+                  key={item.id}
+                  type="button"
+                  className={[
+                    styles.interestCard,
+                    item.comingSoon ? styles.interestDisabled : '',
+                    !item.comingSoon && interests.has(item.id) ? styles.interestSelected : '',
+                  ].filter(Boolean).join(' ')}
+                  onClick={() => { if (!item.comingSoon) toggleInterest(item.id); }}
+                  aria-pressed={!item.comingSoon && interests.has(item.id)}
+                  disabled={item.comingSoon}
+                >
+                  <span className={styles.interestIcon}>{item.icon}</span>
+                  <span className={styles.interestName}>{item.label}</span>
+                  {item.comingSoon && <span className={styles.soonBadge}>Coming soon</span>}
+>>>>>>> origin/main
                 </button>
               ))}
             </div>
           </div>
         </div>
+<<<<<<< HEAD
         <button type="button" onClick={handleContinue} disabled={loading}
           className={`${styles.btn} ${canContinue && !loading ? styles.btnActive : styles.btnMuted}`}>
           {loading ? 'Saving…' : 'Continue'}
         </button>
         {error && <p className={styles.errorText}>{error}</p>}
+=======
+        <button
+          type="button"
+          onClick={handleContinue}
+          className={`${styles.btn} ${canContinue ? styles.btnActive : styles.btnMuted}`}
+        >
+          Continue
+        </button>
+>>>>>>> origin/main
       </div>
     </AuthLayout>
   );

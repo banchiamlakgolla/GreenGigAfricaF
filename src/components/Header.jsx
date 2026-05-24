@@ -1,28 +1,47 @@
-// import  {useState } from "react";
-
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import '../assets/styles/header.css';
+import headerLogo from '../assets/images/header-logo.png'
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
-    <div className="flex items-center justify-between p-4 bg-green-400 text-black-400">
- <div className="">
-      <img src="" alt="" />
-    </div>
-    <div className="flex">
-        <ul className="flex space-x-4">
-          <li><a href="">Home</a></li>
-          <li><a href="">About</a></li>
-          <li><a href="">Get Started</a></li>
-          <li><a href="">Our mission</a></li>
-          <li><a href="">Browse Task</a></li>
-          <li><a href="">Contact</a></li>
+    <header className="fixed z-10 flex items-center justify-between py-6 px-6 h-[10vh] w-full"
+      style={{
+        background: "#ffffff",
+        boxShadow: "0 1px 0 #e0e0e0"
+      }}>
+      <div className="logo flex items-center">
+        <img src={headerLogo} alt="Header 
+        Logo" className='w-30 h-30' />
+      </div>
+      <div className="flex">
+        <ul className="nav-links flex gap-8">
+          {['How it works', 'Task types', 'Why GreenGig', 'About'].map((label) => (
+            <li key={label}>
+              <a
+                href=""
+                className='relative text-[#1a1a1a] text-[16px] font-normal after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#026C24] after:transition-all hover:after:w-full underline-offset-8'
+              >{label}</a>
+            </li>
+          ))}
         </ul>
       </div>
-      <div className="flex space-x-2">
-        <button className="border border-green-400 text-black-400 hover:border border-green-600 hover:text-white">Log In</button>
-        <button className="bg-green-700 border border-none rounded-xl p-3 text-center text-white">Sign Up</button>
+      <div className="flex gap-6 items-center">
+        <button
+          onClick={() => navigate('/login')}
+          className="logIn text-[#1a1a1a] text-[16px] font-medium bg-transparent border-none cursor-pointer"
+        >
+          Log In
+        </button>
+        <button
+          onClick={() => navigate('/onboarding')}
+          className="sign-up rounded-[10px] text-white text-[16px] font-medium"
+          style={{ padding: '14px 32px', background: '#026C24', border: 'none' }}
+        >
+          Sign Up
+        </button>
       </div>
-    </div>
-   
+    </header>
   )
-
 }
